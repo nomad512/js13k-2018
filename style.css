@@ -4,4 +4,10 @@ body {
 	margin: 0 auto;
 }
 
+canvas {
+	border: 10px groove gray;
+	display: block;
+	margin: 0 auto;
+}
+
 

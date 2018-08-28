@@ -1,79 +1,86 @@
 kontra.init();
 
-class Planet {
+// class Planet {
+// 	constructor (props) {
+// 		this.sprite = kontra.sprite({
+// 			x: props.x,
+// 			y: props.y,
+// 			radius: props.radius,
+// 			color: props.color,
+// 		});
+
+// 		this.x = this.sprite.x;
+// 		this.y = this.sprite.y;
+// 		// this.gravity = props.gravity;
+// 	}
+
+// 	update () {
+// 		this.sprite.update();
+// 	}
+
+// 	render () {
+// 		const { sprite } = this;
+
+// 		sprite.context.fillStyle = this.color;
+// 		sprite.context.beginPath();
+// 		sprite.context.arc(sprite.x, sprite.y, sprite.radius, 0, 2 * Math.PI);
+// 		sprite.context.fill();
+
+// 		// this.sprite.render();
+// 	}
+// }
+
+class Player {
 	constructor (props) {
 		this.sprite = kontra.sprite({
 			x: props.x,
 			y: props.y,
-			radius: props.radius,
-			color: props.color,
+			width: 10,
+			height: 10,
+			color: 'red',
 		});
-
-		this.x = this.sprite.x;
-		this.y = this.sprite.y;
-		// this.gravity = props.gravity;
 	}
 
 	update () {
+		if (kontra.keys.pressed('left')){
+      this.sprite.dx = -1.5;
+    }
+    else if (kontra.keys.pressed('right')) {
+      this.sprite.dx = 1.5;
+		}
+		else {
+			this.sprite.dx = 0;
+		}
+
+    if (kontra.keys.pressed('up')) {
+      this.sprite.dy = -1.5;
+    }
+    else if (kontra.keys.pressed('down')) {
+      this.sprite.dy = 1.5;
+    }
+		else {
+			this.sprite.dy = 0;
+		}
+
 		this.sprite.update();
 	}
-
-	render () {
-		const { sprite } = this;
-
-		sprite.context.fillStyle = this.color;
-		sprite.context.beginPath();
-		sprite.context.arc(sprite.x, sprite.y, sprite.radius, 0, 2 * Math.PI);
-		sprite.context.fill();
-
-		// this.sprite.render();
-	}
+	render () { this.sprite.render(); }
 }
 
-const planet = new Planet({
-	x: 300,
-	y: 300,
-	radius: 100,
-	// color: 'blue',
-	// gravity: 5,
-});
-
-class Moon extends Planet {
-	constructor () {
-		console.log(planet.x, planet.y)
-		super({
-			x: planet.x,
-			y: planet.y - 150, // why?
-			radius: 30,
-			// color: 'blue',
-			// gravity: 5,
-		});
-
-		this.radians = 0;
-		this.velocity = .1; // i think this orbit is eliptical tho somehow ...
-	}
-
-	update () {
-		this.radians += this.velocity;
-		this.sprite.dx = Math.cos(this.radians) * 15
-		this.sprite.dy = Math.sin(this.radians) * 15;
-		this.sprite.update();
-		// console.log(Math.floor(this.sprite.dx))
-	}
-}
-
-
-
-const moon = new Moon();
+const player = new Player({ x: 0, y: 0 });
 
 const loop = kontra.gameLoop({
+	// resolve user actions
 	update () {
-		planet.update();
-		moon.update();
+		player.update();
+		// planet.update();
+		// moon.update();
 	},
+	// paint the new world
 	render () {
-		planet.render();
-		moon.render();
+		player.render();
+		// planet.render();
+		// moon.render();
 	},
 });
 
