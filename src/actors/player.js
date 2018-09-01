@@ -8,8 +8,7 @@ export default class Player {
 			y: props.y,
 			width: 20,
 			height: 20,
-			color: 'blue',
-			ddx: -1,
+			color: 'blue'
 		});
 	}
 

@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fractional": "^1.0.0",
     "kontra": "^4.0.1",
     "webpack": "^4.17.1"
   },

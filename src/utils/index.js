@@ -1,20 +1,20 @@
 import kontra from '../kontra'
 
-export const keepInArena = sprite => {
+export const keepInArena = sprite => { // refactor with constants
 	if (sprite.x <= 0) {
 		sprite.x = 0;
 	}
 
-	if (sprite.x >= 960 - sprite.width) {
-		sprite.x = 960 - sprite.width;
+	if (sprite.x >= 500 - sprite.width) {
+		sprite.x = 500 - sprite.width;
 	}
 
 	if (sprite.y <= 0) {
 		sprite.y = 0;
 	}
 
-	if (sprite.y >= 600 - sprite.height) {
-		sprite.y = 600 - sprite.height;
+	if (sprite.y >= 750 - sprite.height) { // refactor with constants
+		sprite.y = 750 - sprite.height;
 	}
 };
 
