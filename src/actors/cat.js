@@ -12,24 +12,32 @@ export default class Cat {
 			dy: 0,
 		});
 
-		this.speed = 10; // px
+		this.speed = 100 / 60; // px per frame (ish)
 	}
 
 	update ({ playerX, playerY }) {
-		const xPlane = Math.abs(this.sprite.x - playerX);
-		const yPlane = Math.abs(this.sprite.y - playerY);
-
-		const theta = Math.atan2(yPlane, xPlane);
-		const hypotenuse = this.speed;
-
-		const deltaY = Math.sin(theta) * this.speed;
-		const deltaX = Math.tan(theta) * this.speed;
-
-		this.sprite.dy = deltaY;
-		this.sprite.dx = deltaX;
+		const mToC = kontra.vector(playerX - this.sprite.x, playerY - this.sprite.y);
+		const nDir = normalize(mToC.x, mToC.y);
+		const vel = scale(nDir.x, nDir.y, this.speed);
+        
+		this.sprite.x += vel.x;
+		this.sprite.y += vel.y;
 
 		this.sprite.update();
 	}
 	
 	render () { this.sprite.render(); }
+}
+
+function scale (x, y, s) {
+    return kontra.vector(x * s, y *s);
+}
+
+function normalize (x, y) {
+    const magnitude = getMagnitude(x, y);
+    return kontra.vector(x / magnitude, y / magnitude);
+}
+
+function getMagnitude (x, y) {
+    return Math.sqrt((x * x) + (y * y));
 }
